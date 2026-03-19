@@ -40,19 +40,32 @@ while sw:
                     print(f"ven aca, cuando has visto tu que un precio sea '{precios_producto}', colocame un numero valido")
             
             retorno_agregar = INVfunciones.registrar_productos(nombre_producto, cantidad_producto, precios_producto)
+            print(retorno_agregar)
             agregador = {"Nombre":nombre_producto, "Cantidad":cantidad_producto, "Precio unitario":precios_producto, "Total":retorno_agregar}
             inventario.append(agregador)
-            print(retorno_agregar)
+
         
         case "2" | "mostrar" | "inventario":
-
-            for i, c in enumerate (inventario,start = 1):
-                print(f'{i}. {c}')
+            
+            if len(inventario) == 0:
+                print('el inventario esta vacio')
+            else:
+                for i, c in enumerate (inventario,start = 1):
+                    print(f'{i}. {c}')
 
         case "3" | "calcular" | "estadisticas":
-            print('')
+
+            if len(inventario) == 0:
+                print('el inventario esta vacio')
+            else:
+                valortotalinventario, cantidadtotal = INVfunciones.calcular_valor_inventario(inventario)
+                print(f'El valor total del inventario es: {valortotalinventario}')
+                print(f'La cantidad total de productos es: {cantidadtotal}')
         
         case "4" | "salir":
             print('gracias por usar el programa')
             
             sw = False
+        
+        case _:
+            print('opcion no valida, porfavor selecione una opcion valida de la lista o escriba "salir" para cerrar el programa.')
